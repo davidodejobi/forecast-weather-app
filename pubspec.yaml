@@ -10,8 +10,20 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
-
-  cupertino_icons: ^1.0.2
+  # this is used to get the current location of the user
+  geocoding: ^2.0.4
+  # this is used to get the longitude and latitude of the user
+  geolocator: ^9.0.0
+  # this is used to communicate with the API
+  http: ^0.13.4
+  # this is used to format the date into readable format
+  intl: ^0.17.0
+  # this is used to override the default setting in the geolocator library
+  permission_handler: ^9.2.0
+  # this is used for state management (and DI)
+  provider: ^6.0.3
+  # this is used to work with SVG images
+  websafe_svg: ^2.1.2
 
 dev_dependencies:
   flutter_test:
