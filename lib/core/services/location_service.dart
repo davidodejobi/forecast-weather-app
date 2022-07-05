@@ -15,6 +15,9 @@ class LocationService with ChangeNotifier {
   late String _currentLocality;
   late String _currentCountry;
 
+  String get currentLocality => _currentLocality;
+  String get currentCountry => _currentCountry;
+
   Future<Position> getCurrentPosition() async {
     return await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high)
@@ -54,7 +57,6 @@ class LocationService with ChangeNotifier {
       Placemark place = placemarks[0];
 
       _currentLocality = place.locality!;
-      print('_currentLocality: $_currentLocality');
       _currentCountry = place.country!;
     } catch (e) {
       print(e);

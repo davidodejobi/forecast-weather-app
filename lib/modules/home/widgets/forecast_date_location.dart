@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:weather_app/core/services/location_service.dart';
 
 import '../../../constant/paddings.dart';
+import '../../../locator.dart';
 
 class ForecastDateLocation extends StatelessWidget {
   const ForecastDateLocation({
@@ -10,6 +12,8 @@ class ForecastDateLocation extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    LocationService locationService = getIt<LocationService>();
+
     return Padding(
       padding: const EdgeInsets.only(
         left: kDefaultPadding,
@@ -18,7 +22,7 @@ class ForecastDateLocation extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            'London, \nUnited kingdom',
+            '${locationService.currentLocality}, \n${locationService.currentCountry}',
             style: Theme.of(context).textTheme.headline3!.copyWith(
                   height: 1.5,
                 ),

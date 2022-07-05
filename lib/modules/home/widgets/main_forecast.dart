@@ -5,8 +5,14 @@ class MainForecast extends StatelessWidget {
   const MainForecast({
     Key? key,
     required this.size,
+    required this.temperature,
+    required this.selectedDayName,
+    required this.conditionIcon,
   }) : super(key: key);
 
+  final String selectedDayName;
+  final double temperature;
+  final String conditionIcon;
   final Size size;
 
   @override
@@ -17,7 +23,7 @@ class MainForecast extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           Text(
-            'Today',
+            selectedDayName,
             style: Theme.of(context).textTheme.headline4!,
           ),
           const SizedBox(height: 8.0),
@@ -25,13 +31,13 @@ class MainForecast extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: [
               WebsafeSvg.asset(
-                'assets/svg/cloudy.svg',
+                'assets/svg/$conditionIcon.svg',
                 width: 70.0,
                 height: 70.0,
               ),
               const SizedBox(width: 8.0),
               Text(
-                '${37}°',
+                '${temperature.round()}°',
                 // '${37}°',
                 style: Theme.of(context).textTheme.headline1!,
               ),

@@ -1,6 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 
+import '../../../constant/app_color.dart';
 import '../../details/details.dart';
+import '../provider/button_provider.dart';
+
+// HomeProvider _homeProvider = getIt<HomeProvider>();
 
 class ListOfButtons extends StatelessWidget {
   const ListOfButtons({
@@ -9,25 +14,31 @@ class ListOfButtons extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonProvider = Provider.of<ButtonProvider>(context);
     return Row(
       children: [
         Button(
-          color: Colors.white,
+          color: buttonProvider.button1 ? Colors.white : greyColor,
           text: 'Today',
-          onPressed: () {},
+          onPressed: () {
+            buttonProvider.switcher(0);
+          },
         ),
         const SizedBox(width: 16.0),
         Button(
-          color: Colors.white,
+          color: buttonProvider.button2 ? Colors.white : greyColor,
           text: 'Tomorrow',
-          onPressed: () {},
+          onPressed: () {
+            buttonProvider.switcher(1);
+          },
         ),
         const SizedBox(width: 16.0),
         Button(
-          color: Colors.white,
+          color: buttonProvider.button3 ? Colors.white : greyColor,
           text: 'Next 5 days',
           hasIcon: true,
           onPressed: () {
+            buttonProvider.switcher(2);
             Navigator.push(
               context,
               MaterialPageRoute(
@@ -57,6 +68,7 @@ class Button extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final buttonProvider = Provider.of<ButtonProvider>(context);
     return GestureDetector(
       onTap: onPressed,
       child: Row(
@@ -71,10 +83,10 @@ class Button extends StatelessWidget {
           ),
           const SizedBox(width: 4.0),
           if (hasIcon)
-            const Icon(
+            Icon(
               Icons.arrow_forward_outlined,
               size: 18,
-              color: Colors.white,
+              color: buttonProvider.button3 ? Colors.white : greyColor,
             ),
         ],
       ),

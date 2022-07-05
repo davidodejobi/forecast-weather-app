@@ -1,10 +1,13 @@
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
 import 'package:weather_app/core/services/location_service.dart';
 
 import '../../constant/paddings.dart';
 import '../../locator.dart';
 import '../../shared/weather_appbar.dart';
+import 'provider/button_provider.dart';
+import 'provider/home_provider.dart';
 import 'widgets/buttons.dart';
 import 'widgets/forecast_date_location.dart';
 import 'widgets/mini_cards.dart';
@@ -37,6 +40,8 @@ class _HomeState extends State<Home> {
             body: FutureBuilder(
               future: locationService.getCurrentPosition(),
               builder: (context, snapshot) {
+                HomeProvider homeProvider = getIt<HomeProvider>();
+                final buttonProvider = Provider.of<ButtonProvider>(context);
                 if (snapshot.hasData) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -47,7 +52,12 @@ class _HomeState extends State<Home> {
                       ),
                       const SizedBox(height: 16.0),
                       const ForecastDateLocation(),
-                      MainForecast(size: size),
+                      MainForecast(
+                        conditionIcon: homeProvider.conditionIcon.first,
+                        selectedDayName: buttonProvider.selectedDayName,
+                        temperature: homeProvider.temperature.first,
+                        size: size,
+                      ),
                       Padding(
                         padding: const EdgeInsets.only(
                           left: kDefaultPadding,
