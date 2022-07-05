@@ -11,20 +11,12 @@ import '../../../core/services/base_api.dart';
 import '../../../locator.dart';
 
 class HomeProvider with ChangeNotifier {
-  // final LocationService _locationService = getIt<LocationService>();
   final ButtonProvider _buttonProvider = getIt<ButtonProvider>();
+  ButtonProvider buttonProvider = ButtonProvider();
   List _temperature = [];
   List _time = [];
   List _conditionIcon = [];
   List _weatherDescription = [];
-  // bool button1 = true;
-  // bool button2 = false;
-  // bool button3 = false;
-  // int _selectedDay = 0;
-  // String _selectedDayName = 'Today';
-
-  // String get selectedDayName => _selectedDayName;
-  // int get selectedDay => _selectedDay;
 
   List get temperature =>
       _temperature != [] ? _temperature : List.generate(8, (index) => 00);
@@ -43,7 +35,6 @@ class HomeProvider with ChangeNotifier {
           "forecast?lat=$lat&lon=$lng&units=metric&appid=$apiKey");
       var data = json.decode(response.body);
 
-      log('response: $response');
       var weather = ForecastWeather.fromJson(data);
 
       List tempList = [];
@@ -69,6 +60,7 @@ class HomeProvider with ChangeNotifier {
 
       List chunkedWeatherDesc = dataChunker(weatherDesc);
       _weatherDescription = chunkedWeatherDesc[_buttonProvider.selectedDay];
+      log('_weatherDescription: $_weatherDescription');
 
       notifyListeners();
       return weather;
@@ -114,37 +106,4 @@ class HomeProvider with ChangeNotifier {
       return 'partlycloudy';
     }
   }
-
-  // switcher(int index) {
-  //   if (index == 0) {
-  //     _selectedDay = 0;
-  //     _selectedDayName = 'Today';
-  //     // _locationService.getCurrentPosition();
-  //     notifyListeners();
-  //     if (button1 == false) {
-  //       button1 = true;
-  //       button2 = false;
-  //       button3 = false;
-  //       notifyListeners();
-  //     }
-  //   } else if (index == 1) {
-  //     _selectedDay = 1;
-  //     _selectedDayName = 'Tomorrow';
-  //     // _locationService.getCurrentPosition();
-  //     notifyListeners();
-  //     if (button2 == false) {
-  //       button2 = true;
-  //       button1 = false;
-  //       button3 = false;
-  //       notifyListeners();
-  //     }
-  //   } else if (index == 2) {
-  //     if (button3 == false) {
-  //       button3 = true;
-  //       button2 = false;
-  //       button1 = false;
-  //       notifyListeners();
-  //     }
-  //   }
-  // }
 }
