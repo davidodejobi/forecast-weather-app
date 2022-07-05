@@ -14,6 +14,8 @@ dependencies:
   geocoding: ^2.0.4
   # this is used to get the longitude and latitude of the user
   geolocator: ^9.0.0
+  # for flexible dependency injection
+  get_it: ^7.2.0
   # this is used to communicate with the API
   http: ^0.13.4
   # this is used to format the date into readable format
@@ -33,3 +35,6 @@ dev_dependencies:
 
 flutter:
   uses-material-design: true
+
+  assets:
+    - assets/svg/
