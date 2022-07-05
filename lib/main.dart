@@ -1,15 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
+import 'package:weather_app/core/services/location_service.dart';
 
 import 'core/utils/theme.dart';
 import 'locator.dart';
 import 'modules/home/home.dart';
 
+LocationService locationService = getIt<LocationService>();
+
 void main() {
+  WidgetsFlutterBinding.ensureInitialized();
   setUp();
   runApp(
     const WeatherApp(),
   );
+  locationService.getPermission();
 }
 
 class WeatherApp extends StatelessWidget {
