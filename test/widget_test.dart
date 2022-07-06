@@ -7,24 +7,37 @@
 
 import 'package:flutter/material.dart';
 import 'package:flutter_test/flutter_test.dart';
-
-import 'package:weather_app/main.dart';
+import 'package:weather_app/modules/home/home.dart';
+import 'package:weather_app/modules/home/widgets/buttons.dart';
+import 'package:weather_app/modules/home/widgets/forecast_date_location.dart';
+import 'package:weather_app/modules/home/widgets/main_forecast.dart';
+import 'package:weather_app/modules/home/widgets/mini_cards.dart';
 
 void main() {
-  testWidgets('Counter increments smoke test', (WidgetTester tester) async {
+  testWidgets('Check if widgets are on the screen',
+      (WidgetTester tester) async {
     // Build our app and trigger a frame.
-    await tester.pumpWidget(const WeatherApp());
+    // this isn't running because of DI package get_it
+    await tester.pumpWidget(const Home());
 
-    // Verify that our counter starts at 0.
-    expect(find.text('0'), findsOneWidget);
-    expect(find.text('1'), findsNothing);
+    final findDateLocation = find.byWidget(const ForecastDateLocation());
+    final findMainForecast = find.byWidget(const MainForecast(
+      conditionIcon: 'sunny',
+      size: Size(100, 100),
+      selectedDayName: 'Today',
+      temperature: 20,
+      weatherDescription: 'Sunny',
+    ));
+    final miniCards = find.byWidget(const MiniCards(
+      conditionIcon: [],
+      temperature: [],
+      time: [],
+    ));
+    final findButtons = find.byWidget(const ListOfButtons());
 
-    // Tap the '+' icon and trigger a frame.
-    await tester.tap(find.byIcon(Icons.add));
-    await tester.pump();
-
-    // Verify that our counter has incremented.
-    expect(find.text('0'), findsNothing);
-    expect(find.text('1'), findsOneWidget);
+    expect(findDateLocation, findsOneWidget);
+    expect(findMainForecast, findsOneWidget);
+    expect(miniCards, findsOneWidget);
+    expect(findButtons, findsOneWidget);
   });
 }
