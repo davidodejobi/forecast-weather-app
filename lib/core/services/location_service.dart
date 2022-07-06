@@ -18,13 +18,16 @@ class LocationService with ChangeNotifier {
   String get currentLocality => _currentLocality;
   String get currentCountry => _currentCountry;
 
-  Future<Position> getCurrentPosition() async {
+  Future<Position> getCurrentPosition(int selectedDay) async {
     return await Geolocator.getCurrentPosition(
             desiredAccuracy: LocationAccuracy.high)
         .then((Position position) async {
       _latitude = position.latitude;
       _longitude = position.longitude;
-      await _homeProvider.getWeatherForeCast(_latitude, _longitude);
+
+      await _homeProvider.getWeatherForeCast(
+          _latitude, _longitude, selectedDay);
+
       await _getAddressFromLatLng();
       notifyListeners();
       return position;

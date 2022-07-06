@@ -1,20 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
-import '../../../locator.dart';
-import '../provider/home_provider.dart';
-
-HomeProvider homeProvider = getIt<HomeProvider>();
-
 class MiniCards extends StatelessWidget {
   const MiniCards({
+    required this.time,
+    required this.conditionIcon,
+    required this.temperature,
     Key? key,
   }) : super(key: key);
+
+  final List time;
+  final List conditionIcon;
+  final List temperature;
+
   @override
   Widget build(BuildContext context) {
     return ListView.builder(
         scrollDirection: Axis.horizontal,
-        itemCount: homeProvider.time.length,
+        itemCount: time.length,
         itemBuilder: (context, index) {
           return Container(
             padding: const EdgeInsets.symmetric(
@@ -32,18 +35,18 @@ class MiniCards extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
                 Text(
-                  homeProvider.time[index],
+                  time[index],
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
                 const SizedBox(height: 8.0),
                 WebsafeSvg.asset(
-                  'assets/svg/${homeProvider.conditionIcon[index]}.svg',
+                  'assets/svg/${conditionIcon[index]}.svg',
                   width: 32.0,
                   height: 32.0,
                 ),
                 const SizedBox(height: 8.0),
                 Text(
-                  '${homeProvider.temperature[index].round()}°',
+                  '${temperature[index].round()}°',
                   style: Theme.of(context).textTheme.subtitle1,
                 ),
               ],

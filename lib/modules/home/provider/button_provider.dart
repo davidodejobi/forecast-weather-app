@@ -19,7 +19,7 @@ class ButtonProvider with ChangeNotifier {
     if (index == 0) {
       _selectedDay = 0;
       _selectedDayName = 'Today';
-      _locationService.getCurrentPosition();
+      _locationService.getCurrentPosition(_selectedDay);
       notifyListeners();
       if (button1 == false) {
         button1 = true;
@@ -30,7 +30,7 @@ class ButtonProvider with ChangeNotifier {
     } else if (index == 1) {
       _selectedDay = 1;
       _selectedDayName = 'Tomorrow';
-      _locationService.getCurrentPosition();
+      _locationService.getCurrentPosition(_selectedDay);
       notifyListeners();
       if (button2 == false) {
         button2 = true;

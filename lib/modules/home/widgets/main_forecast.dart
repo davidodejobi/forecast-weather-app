@@ -8,11 +8,13 @@ class MainForecast extends StatelessWidget {
     required this.temperature,
     required this.selectedDayName,
     required this.conditionIcon,
+    required this.weatherDescription,
   }) : super(key: key);
 
   final String selectedDayName;
   final double temperature;
   final String conditionIcon;
+  final String weatherDescription;
   final Size size;
 
   @override
@@ -45,7 +47,7 @@ class MainForecast extends StatelessWidget {
           ),
           const SizedBox(height: 8.0),
           Text(
-            'Sunny',
+            weatherDescription,
             style: Theme.of(context).textTheme.subtitle1!,
           ),
         ],

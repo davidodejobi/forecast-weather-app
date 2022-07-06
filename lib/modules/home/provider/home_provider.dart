@@ -8,10 +8,8 @@ import 'package:weather_app/modules/home/provider/button_provider.dart';
 import '../../../core/models/forecast_weather.dart';
 import '../../../core/services/api_token.dart';
 import '../../../core/services/base_api.dart';
-import '../../../locator.dart';
 
 class HomeProvider with ChangeNotifier {
-  final ButtonProvider _buttonProvider = getIt<ButtonProvider>();
   ButtonProvider buttonProvider = ButtonProvider();
   List _temperature = [];
   List _time = [];
@@ -29,6 +27,7 @@ class HomeProvider with ChangeNotifier {
   Future getWeatherForeCast(
     double lat,
     double lng,
+    int selectedDay,
   ) async {
     try {
       var response = await connect(
@@ -50,17 +49,16 @@ class HomeProvider with ChangeNotifier {
       }
 
       List chunkedTemp = dataChunker(tempList);
-      _temperature = chunkedTemp[_buttonProvider.selectedDay];
+      _temperature = chunkedTemp[selectedDay];
 
       List chunkedTime = dataChunker(timeList);
-      _time = chunkedTime[_buttonProvider.selectedDay];
+      _time = chunkedTime[selectedDay];
 
       List chunkedWeatherIcon = dataChunker(weatherIcon);
-      _conditionIcon = chunkedWeatherIcon[_buttonProvider.selectedDay];
+      _conditionIcon = chunkedWeatherIcon[selectedDay];
 
       List chunkedWeatherDesc = dataChunker(weatherDesc);
-      _weatherDescription = chunkedWeatherDesc[_buttonProvider.selectedDay];
-      log('_weatherDescription: $_weatherDescription');
+      _weatherDescription = chunkedWeatherDesc[selectedDay];
 
       notifyListeners();
       return weather;

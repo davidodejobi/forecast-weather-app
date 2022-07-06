@@ -26,6 +26,7 @@ class _HomeState extends State<Home> {
   @override
   Widget build(BuildContext context) {
     Size size = MediaQuery.of(context).size;
+    final buttonProvider = Provider.of<ButtonProvider>(context);
     return Container(
         decoration: const BoxDecoration(
             gradient: LinearGradient(
@@ -38,10 +39,10 @@ class _HomeState extends State<Home> {
         child: Scaffold(
             backgroundColor: Colors.transparent,
             body: FutureBuilder(
-              future: locationService.getCurrentPosition(),
+              future: locationService
+                  .getCurrentPosition(buttonProvider.selectedDay),
               builder: (context, snapshot) {
                 HomeProvider homeProvider = getIt<HomeProvider>();
-                final buttonProvider = Provider.of<ButtonProvider>(context);
                 if (snapshot.hasData) {
                   return Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
@@ -56,6 +57,8 @@ class _HomeState extends State<Home> {
                         conditionIcon: homeProvider.conditionIcon.first,
                         selectedDayName: buttonProvider.selectedDayName,
                         temperature: homeProvider.temperature.first,
+                        weatherDescription:
+                            homeProvider.weatherDescription.first,
                         size: size,
                       ),
                       Padding(
@@ -77,11 +80,15 @@ class _HomeState extends State<Home> {
                                 ),
                                 color: Color(0xFF75A0FF),
                               ),
-                              child: const Padding(
-                                padding: EdgeInsets.only(
+                              child: Padding(
+                                padding: const EdgeInsets.only(
                                   left: kDefaultPadding,
                                 ),
-                                child: MiniCards(),
+                                child: MiniCards(
+                                  time: homeProvider.time,
+                                  conditionIcon: homeProvider.conditionIcon,
+                                  temperature: homeProvider.temperature,
+                                ),
                               ),
                             )
                           ],
