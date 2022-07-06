@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:weather_app/locator.dart';
+import 'package:weather_app/modules/details/provider/details_provider.dart';
 import 'package:weather_app/shared/weather_appbar.dart';
 import 'package:websafe_svg/websafe_svg.dart';
 
@@ -11,6 +13,7 @@ class Details extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final MyColors base = Theme.of(context).extension<MyColors>()!;
+    DetailProvider detailProvider = getIt<DetailProvider>();
     return Scaffold(
       appBar: createWeatherAppBar(
         context,
@@ -25,7 +28,7 @@ class Details extends StatelessWidget {
           children: [
             const SizedBox(height: 20),
             Text(
-              'Next 5 days',
+              'Next ${detailProvider.week.length} days',
               style: Theme.of(context).textTheme.headline3!.copyWith(
                     color: base.colour,
                     fontSize: 35,
@@ -34,14 +37,14 @@ class Details extends StatelessWidget {
             const SizedBox(height: 40),
             Expanded(
                 child: ListView.builder(
-              itemCount: 5,
+              itemCount: detailProvider.week.length,
               itemBuilder: (context, index) {
                 return SizedBox(
                   height: 60,
                   child: Row(
                     children: [
                       Text(
-                        'Sunday',
+                        detailProvider.week[index],
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               color: base.colour,
                               fontWeight: FontWeight.w500,
@@ -51,13 +54,13 @@ class Details extends StatelessWidget {
                       ),
                       const Spacer(),
                       WebsafeSvg.asset(
-                        'assets/svg/sunny.svg',
+                        'assets/svg/${detailProvider.weekIcon[index]}.svg',
                         width: 32.0,
                         height: 32.0,
                       ),
                       const SizedBox(width: 20),
                       Text(
-                        '27°',
+                        '${detailProvider.weekTemp[index].round()}°',
                         style: Theme.of(context).textTheme.subtitle1!.copyWith(
                               fontWeight: FontWeight.w500,
                               color: base.colour,

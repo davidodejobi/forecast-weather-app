@@ -3,12 +3,14 @@ import 'dart:developer';
 import 'package:flutter/material.dart';
 import 'package:geocoding/geocoding.dart';
 import 'package:geolocator/geolocator.dart';
+import 'package:weather_app/modules/details/provider/details_provider.dart';
 import 'package:weather_app/modules/home/provider/home_provider.dart';
 
 import '../../locator.dart';
 
 class LocationService with ChangeNotifier {
   final HomeProvider _homeProvider = getIt<HomeProvider>();
+  final DetailProvider _detailProvider = getIt<DetailProvider>();
 
   late double _longitude;
   late double _latitude;
@@ -29,6 +31,9 @@ class LocationService with ChangeNotifier {
           _latitude, _longitude, selectedDay);
 
       await _getAddressFromLatLng();
+
+      await _detailProvider.getFiveDaysWeatherForeCast(_latitude, _longitude);
+
       notifyListeners();
       return position;
     });
