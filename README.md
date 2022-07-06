@@ -2,6 +2,6 @@
 
 Get a 5 days forecast and see what the weather will look like in few days to come.
 
-## Task ScreenShot
+## Task%20ScreenShot
 
 ![](ss/weather forecast.gif)
