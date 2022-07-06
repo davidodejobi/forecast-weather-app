@@ -1,16 +1,7 @@
-# weather_app
+# credo_engage
 
-A new Flutter project.
+Get a 5 days forecast and see what the weather will look like in few days to come.
 
-## Getting Started
+## Task ScreenShot
 
-This project is a starting point for a Flutter application.
-
-A few resources to get you started if this is your first Flutter project:
-
-- [Lab: Write your first Flutter app](https://docs.flutter.dev/get-started/codelab)
-- [Cookbook: Useful Flutter samples](https://docs.flutter.dev/cookbook)
-
-For help getting started with Flutter development, view the
-[online documentation](https://docs.flutter.dev/), which offers tutorials,
-samples, guidance on mobile development, and a full API reference.
+![](ss/weather forecast.gif)
