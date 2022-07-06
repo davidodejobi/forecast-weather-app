@@ -1,7 +1,7 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:weather_app/core/services/location_service.dart';
+import 'package:weather_app/modules/home/widgets/loader/loader.dart';
 
 import '../../constant/paddings.dart';
 import '../../locator.dart';
@@ -90,9 +90,7 @@ class _HomeState extends State<Home> {
                     ],
                   );
                 } else {
-                  return const Center(
-                    child: CupertinoActivityIndicator(),
-                  );
+                  return const Loader();
                 }
               },
             )));
